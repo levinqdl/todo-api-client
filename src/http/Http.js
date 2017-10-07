@@ -11,17 +11,9 @@ class Http {
    * // ...
    * @param {Object} defaults - The default config for the instance.
    * @param {string} defaults.baseURL - Coming soon.
-   * @param {Object} defaults.headers.common - Coming soon.
    */
   constructor(defaults) {
-    this.defaults = Object.assign({
-      headers: {
-        common: {
-          Accept: 'application/json',
-          'Content-Type': 'multipart/form-data',
-        },
-      },
-    }, defaults);
+    this.defaults = defaults;
     this.interceptors = { request: [], response: [] };
   }
 
@@ -35,16 +27,19 @@ class Http {
    */
   async sendRequest(url, options = {}) {
     let requestUrl = `${this.defaults.baseURL}${url}`;
-    let requestOptions = Object.assign({
-      headers: this.defaults.headers.common,
-    }, options);
+    let requestOptions = options;
 
-    /* eslint-disable */
-    console.log('----------');
-    console.log(requestUrl);
-    console.log(JSON.stringify(requestOptions, null, 2));
-    console.log('----------');
-    /* eslint-enable */
+    if (!requestOptions.headers) {
+      requestOptions.headers = {};
+    }
+
+    requestOptions.headers = Object.assign(
+      {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      requestOptions.headers,
+    );
 
     this.interceptors.request.forEach((interceptor) => {
       const request = interceptor(requestUrl, requestOptions);
@@ -52,14 +47,11 @@ class Http {
       requestOptions = request.options;
     });
 
-    /* eslint-disable */
-    console.log('----------');
-    console.log(requestUrl);
-    console.log(JSON.stringify(requestOptions, null, 2));
-    console.log('----------');
-    /* eslint-enable */
+    let response = await fetch(requestUrl, requestOptions);
+    this.interceptors.response.forEach((interceptor) => {
+      response = interceptor(response);
+    });
 
-    const response = await fetch(requestUrl, requestOptions);
     const responseJson = await response.json();
     return responseJson.data;
   }

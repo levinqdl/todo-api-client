@@ -1,45 +1,63 @@
 import 'isomorphic-fetch';
+import RealFormData from 'form-data';
 import chalk from 'chalk';
 import Client from '../../src/Client';
+
+if (!global.FormData) {
+  global.FormData = RealFormData;
+}
 
 class Demo {
   constructor() {
     this.client = new Client({
-      baseURL: 'http://127.0.0.1:8888',
+      baseURL: 'http://127.0.0.1:8000',
     });
     this.client.http.interceptors.request.push((url, options) => {
-      if (!this.accessToken) {
-        return { url, options };
+      const newOptions = options;
+
+      if (this.loggedJwt) {
+        newOptions.headers.Authorization = `Bearer ${this.loggedJwt.access_token}`;
       }
+      console.log(chalk.blue('Request:'));
+      console.log(chalk.blue(`url: ${url}`));
+      console.log(chalk.blue(`options: ${JSON.stringify(newOptions, null, 2)}`));
+      console.log(chalk.blue('--------------------------------------------------'));
+
       return {
         url,
-        options: Object.assign(options, {
-          headers: {
-            Authorization: `Bearer ${this.accessToken}`,
-          },
-        }),
+        options: newOptions,
       };
     });
-    console.log(this.client.http.defaults);
-    console.log(this.client.http.interceptors);
+    this.client.http.interceptors.response.push((response) => {
+      setTimeout(async () => {
+        console.log(chalk.blue('Response:'));
+        console.log(chalk.blue(`url: ${(await response).url}`));
+        console.log(chalk.blue(`status: ${(await response).status}`));
+        console.log(chalk.blue(`statusText: ${(await response).statusText}`));
+        console.log(chalk.blue('--------------------------------------------------'));
+      });
+      return response;
+    });
 
-    this.accessToken = '';
+    this.loggedJwt = null;
+    this.loggedUser = null;
   }
   async test() {
     try {
       let data = {};
-      data = await this.client.account.login({
+      const loggedUser = await this.client.account.login({
         email: 'lijy91@foxmail.com',
         password: '123456',
       });
-      this.accessToken = data.jwt_token.access_token;
-      console.log(JSON.stringify(data, null, 2));
 
-      // data = await this.client.lists.list();
-      // console.log(JSON.stringify(data, null, 2));
+      this.loggedJwt = loggedUser.jwt_token;
+      this.loggedUser = loggedUser;
+      console.log(chalk.green(JSON.stringify(loggedUser, null, 2)));
+
+      data = await this.client.lists.list();
+      console.log(chalk.green(JSON.stringify(data, null, 2)));
     } catch (error) {
-      console.log(JSON.stringify(error, null, 2));
-      console.log(chalk.red(error.message));
+      console.log(chalk.red(error));
     }
   }
 }

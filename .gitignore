@@ -59,4 +59,4 @@ typings/
 
 # Output of 'npm run build'
 docs/
-lib/
+# lib/
