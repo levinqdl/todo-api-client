@@ -1,8 +1,4 @@
 {
-  "docset" : {
-    "name": "SmallMDM API Client",
-    "enableJavascript": true
-  },
   "tags": {
     "allowUnknownTags": false
   },
