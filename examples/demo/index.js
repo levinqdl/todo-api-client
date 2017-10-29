@@ -10,7 +10,7 @@ if (!global.FormData) {
 class Demo {
   constructor() {
     this.client = new Client({
-      baseURL: 'http://127.0.0.1:8000',
+      baseURL: 'http://192.168.1.176:8000',
     });
     this.client.http.interceptors.request.push((url, options) => {
       const newOptions = options;
