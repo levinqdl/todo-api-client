@@ -14,13 +14,17 @@ class Lists {
    * @example
    * const params = {
    *   page: 1,
+   *   list_type: 'task_list',
    * };
    * client.lists.list(params);
+   * @param {*} params - Query params.
+   * @param {number} params.list_type - List type.
    * @returns {Array} Lists.
    */
-  list() {
+  list(params) {
     return this.http.sendRequest('/lists', {
       method: 'GET',
+      params,
     });
   }
   /**

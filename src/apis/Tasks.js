@@ -14,13 +14,17 @@ class Tasks {
    * @example
    * const params = {
    *   page: 1,
+   *   list_id: 0,
    * };
    * client.tasks.list(params);
+   * @param {*} params - Query params.
+   * @param {number} params.list_id - List id.
    * @returns {Array} Tasks.
    */
-  list() {
+  list(params) {
     return this.http.sendRequest('/tasks', {
       method: 'GET',
+      params,
     });
   }
   /**
