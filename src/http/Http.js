@@ -26,7 +26,15 @@ class Http {
    * @param {Object} options - Coming soon.
    */
   async sendRequest(url, options = {}) {
-    let requestUrl = `${this.defaults.baseURL}${url}`;
+    const urlSearchParams = new URLSearchParams();
+    if (options.params) {
+      const keys = Object.keys(options.params);
+      keys.forEach((key) => {
+        const value = options.params[key];
+        urlSearchParams.append(key, value);
+      });
+    }
+    let requestUrl = `${this.defaults.baseURL}${url}?${urlSearchParams.toString()}`;
     let requestOptions = options;
 
     if (!requestOptions.headers) {
