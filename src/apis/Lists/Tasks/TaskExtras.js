@@ -1,6 +1,6 @@
 /**
  * TaskExtras Service
- * @exports apis/TaskExtras
+ * @exports apis/Lists/Tasks/TaskExtras
  * @class
  * @author JianyingLi <lijy91@foxmail.com>
  */
@@ -14,15 +14,14 @@ class TaskExtras {
    * @example
    * const params = {
    *   page: 1,
-   *   task_id: 1,
    * };
-   * client.taskExtras.list(params);
+   * client.list(1).task(1).extras.list(params);
    * @param {Object} params - Query params.
-   * @param {number} params.task_id - Task id.
+   * @param {number} params.page - Page.
    * @returns {Array} Task extras.
    */
   list(params) {
-    return this.http.sendRequest('/task_extras', {
+    return this.http.sendRequest(`/lists/${this.listId}/tasks/${this.taskId}/extras`, {
       method: 'GET',
       params,
     });
@@ -32,20 +31,19 @@ class TaskExtras {
    *
    * @example
    * const data = {
-   *   task_id: 1,
    *   type: 'map',
    *   key: '...',
    *   value: '...',
    * }
-   * client.taskExtras.create(data);
+   * client.list(1).task(1).extras.create(data);
    * @param {Object} data - Data.
-   * @param {number} data.task_id - Task id.
-   * @param {string} data.name - List name.
-   * @param {string} data.description - List description.
+   * @param {string} data.type - Extra type.
+   * @param {string} data.key - Extra key.
+   * @param {string} data.value - Extra value.
    * @returns {Object} Task extra object.
    */
   create(data) {
-    return this.http.sendRequest('/task_extras', {
+    return this.http.sendRequest(`/lists/${this.listId}/tasks/${this.taskId}/extras`, {
       method: 'POST',
       body: JSON.stringify(data),
     });
@@ -54,11 +52,11 @@ class TaskExtras {
    * Get a specific task extra.
    *
    * @example
-   * client.taskExtra(1).get();
+   * client.list(1).task(1).extra(1).get();
    * @returns {Object} Task extra object.
    */
   get() {
-    return this.http.sendRequest(`/task_extras/${this.listId}`, {
+    return this.http.sendRequest(`/lists/${this.listId}/tasks/${this.taskId}/extras/${this.taskExtraId}`, {
       method: 'GET',
     });
   }
@@ -71,15 +69,15 @@ class TaskExtras {
    *   key: '...',
    *   value: '...',
    * };
-   * client.application(1).update(data);
+   * client.list(1).task(1).extra(1).update(data);
    * @param {Object} data -
    * @param {string} data.type - Extra type.
    * @param {string} data.key - Extra key.
    * @param {string} data.value - Extra value.
-   * @returns {Object} List object.
+   * @returns {Object} Task extra object.
    */
   update(data) {
-    return this.http.sendRequest(`/task_extras/${this.taskExtraId}`, {
+    return this.http.sendRequest(`/lists/${this.listId}/tasks/${this.taskId}/extras/${this.taskExtraId}`, {
       method: 'PATCH',
       body: JSON.stringify(data),
     });
@@ -88,10 +86,10 @@ class TaskExtras {
    * Delete a task extra.
    *
    * @example
-   * client.application(1).delete();
+   * client.list(1).task(1).extra(1).delete();
    */
   delete() {
-    return this.http.sendRequest(`/task_extras/${this.taskExtraId}`, {
+    return this.http.sendRequest(`/lists/${this.listId}/tasks/${this.taskId}/extras/${this.taskExtraId}`, {
       method: 'DELETE',
     });
   }

@@ -28,11 +28,11 @@ $ yarn add todo-api-client
 ```js
 const client = new Client({});
 
-// Create a task.
+// Create a list.
 const data = {
-  name: 'MyTask',
+  name: 'MyList',
 };
-client.tasks.create(data);
+client.lists.create(data);
 ```
 
 ## Discussion

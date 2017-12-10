@@ -81,31 +81,6 @@ class Client {
     this.listService.listId = id;
     return this.listService;
   }
-  /**
-   * Get task service instance.
-   *
-   * @example
-   * // ...
-   * @returns {Tasks} Task service.
-   */
-  get tasks() {
-    return this.task();
-  }
-  /**
-   * Get task service instance with id.
-   *
-   * @example
-   * // ...
-   * @param {number} id - Task id.
-   * @returns {Lists} Task service with id.
-   */
-  task(id) {
-    if (!this.taskService) {
-      this.taskService = new Tasks(this.http);
-    }
-    this.taskService.taskId = id;
-    return this.taskService;
-  }
 }
 
 export default Client;
