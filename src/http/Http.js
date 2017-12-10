@@ -40,7 +40,7 @@ class Http {
     if (!requestOptions.headers) {
       requestOptions.headers = {
         Accept: 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       };
     } else if (requestOptions.headers['Content-Type']) {
       delete requestOptions.headers['Content-Type'];

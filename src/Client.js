@@ -2,7 +2,6 @@ import Http from './http/Http';
 import Account from './apis/Account';
 import Users from './apis/Users';
 import Lists from './apis/Lists';
-import Tasks from './apis/Tasks';
 
 /**
  * ToDo API Client
