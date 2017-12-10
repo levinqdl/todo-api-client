@@ -24,5 +24,7 @@
     "jsdoc": "^3.5.5",
     "pre-commit": "^1.2.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "url-search-params": "^0.10.0"
+  }
 }

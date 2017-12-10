@@ -1,3 +1,5 @@
+import URLSearchParams from 'url-search-params';
+
 /**
  * A Very simple http client
  * @exports Http

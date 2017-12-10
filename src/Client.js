@@ -15,7 +15,6 @@ class Client {
 
     this.user = this.user.bind(this);
     this.list = this.list.bind(this);
-    this.task = this.task.bind(this);
   }
   /**
    * Get account service instance.
