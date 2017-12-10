@@ -36,7 +36,7 @@ class Client {
    * @returns {Users} User service.
    */
   get users() {
-    return this.user(0);
+    return this.user();
   }
   /**
    * Get user service instance with id.

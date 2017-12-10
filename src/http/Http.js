@@ -64,7 +64,7 @@ class Http {
     }
 
     const responseJson = await response.json();
-    return responseJson.data;
+    return responseJson;
   }
 }
 

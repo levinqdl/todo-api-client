@@ -32,6 +32,7 @@ class Lists {
     if (!this.taskService) {
       this.taskService = new Tasks(this.http);
     }
+    this.taskService.listId = this.listId;
     this.taskService.taskId = id;
     return this.taskService;
   }

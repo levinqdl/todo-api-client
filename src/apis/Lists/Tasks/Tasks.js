@@ -33,8 +33,9 @@ class Tasks {
     if (!this.taskExtraService) {
       this.taskExtraService = new TaskExtras(this.http);
     }
+    this.taskExtraService.listId = this.listId;
     this.taskExtraService.taskId = this.taskId;
-    this.taskNoteService.taskExtraId = id;
+    this.taskExtraService.taskExtraId = id;
     return this.taskExtraService;
   }
   /**
@@ -59,6 +60,7 @@ class Tasks {
     if (!this.taskNoteService) {
       this.taskNoteService = new TaskNotes(this.http);
     }
+    this.taskNoteService.listId = this.listId;
     this.taskNoteService.taskId = this.taskId;
     this.taskNoteService.taskNoteId = id;
     return this.taskNoteService;

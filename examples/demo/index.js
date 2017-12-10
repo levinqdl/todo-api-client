@@ -45,7 +45,7 @@ class Demo {
   async test() {
     try {
       let data = {};
-      const loggedUser = await this.client.account.login({
+      const { data: loggedUser } = await this.client.account.login({
         email: 'lijy91@foxmail.com',
         password: '123456',
       });
@@ -55,6 +55,9 @@ class Demo {
       console.log(chalk.green(JSON.stringify(loggedUser, null, 2)));
 
       data = await this.client.lists.list();
+      console.log(chalk.green(JSON.stringify(data, null, 2)));
+
+      data = await this.client.list(1).tasks.list();
       console.log(chalk.green(JSON.stringify(data, null, 2)));
     } catch (error) {
       console.log(chalk.red(error));
