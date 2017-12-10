@@ -1,6 +1,6 @@
 /**
- * Application Service
- * @exports Client/Lists
+ * Lists Service
+ * @exports apis/Lists
  * @class
  * @author JianyingLi <lijy91@foxmail.com>
  */
@@ -32,14 +32,13 @@ class Lists {
    *
    * @example
    * const data = {
-   *   name: 'MyList',
-   *   description: '...',
+   *   list_type: 'task_list',
+   *   title: 'MyList',
    * }
-   * client.applications.create(data);
+   * client.lists.create(data);
    * @param {*} data -
-   * @param {number} data.org_id - Organization id.
-   * @param {string} data.name - List name.
-   * @param {string} data.description - List description.
+   * @param {string} data.list_type - List type.
+   * @param {string} data.title - List title.
    * @returns {Object} List object.
    */
   create(data) {
@@ -52,7 +51,7 @@ class Lists {
    * Get a specific list.
    *
    * @example
-   * client.application(1).get();
+   * client.list(1).get();
    * @returns {Object} List object.
    */
   get() {
@@ -68,10 +67,9 @@ class Lists {
    *   name: 'MyList',
    *   description: '...',
    * };
-   * client.application(1).update(data);
+   * client.list(1).update(data);
    * @param {Object} data -
-   * @param {number} data.org_id - Organization id.
-   * @param {string} data.name - List name.
+   * @param {number} data.title - List title.
    * @param {string} data.description - List description.
    * @returns {Object} List object.
    */
@@ -85,7 +83,7 @@ class Lists {
    * Delete a list.
    *
    * @example
-   * client.application(1).delete();
+   * client.list(1).delete();
    */
   delete() {
     return this.http.sendRequest(`/lists/${this.listId}`, {

@@ -1,6 +1,6 @@
 /**
- * Application Service
- * @exports Client/Tasks
+ * Tasks Service
+ * @exports apis/Tasks
  * @class
  * @author JianyingLi <lijy91@foxmail.com>
  */
@@ -32,12 +32,13 @@ class Tasks {
    *
    * @example
    * const data = {
+   *   list_id: 0,
    *   name: 'MyTask',
    *   description: '...',
    * }
    * client.tasks.create(data);
    * @param {*} data -
-   * @param {number} data.org_id - Organization id.
+   * @param {number} data.list - List id.
    * @param {string} data.name - Task name.
    * @param {string} data.description - Task description.
    * @returns {Object} Task object.
@@ -70,7 +71,7 @@ class Tasks {
    * };
    * client.task(1).update(data);
    * @param {Object} data -
-   * @param {number} data.org_id - Organization id.
+   * @param {number} data.task_id - Task id.
    * @param {string} data.name - Task name.
    * @param {string} data.description - Task description.
    * @returns {Object} Task object.

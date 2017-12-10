@@ -1,6 +1,6 @@
 /**
- * User Service
- * @exports Client/Users
+ * Users Service
+ * @exports apis/Users
  * @class
  * @author JianyingLi <lijy91@foxmail.com>
  */

@@ -1,6 +1,6 @@
 /**
  * Account Service
- * @exports Client/Account
+ * @exports apis/Account
  * @class
  * @author JianyingLi <lijy91@foxmail.com>
  */
@@ -13,7 +13,7 @@ class Account {
    *
    * @example
    * const data = {
-   *   email: 'xxx@smallmdm.org',
+   *   email: 'xxx@blankapp.org',
    *   password: 'xxx',
    * };
    * client.account.register(data);
@@ -33,7 +33,7 @@ class Account {
    *
    * @example
    * const data = {
-   *   email: 'xxx@smallmdm.org',
+   *   email: 'xxx@blankapp.org',
    *   password: 'xxx',
    * };
    * client.account.login(data);
@@ -76,7 +76,7 @@ class Account {
    *
    * @example
    * const data = {
-   *   name: 'SmallMDM',
+   *   name: 'Leo',
    *   birthday: '2017-09-27',
    * };
    * client.account.updateProfile(data);

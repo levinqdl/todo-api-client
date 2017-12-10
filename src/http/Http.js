@@ -38,16 +38,13 @@ class Http {
     let requestOptions = options;
 
     if (!requestOptions.headers) {
-      requestOptions.headers = {};
-    }
-
-    requestOptions.headers = Object.assign(
-      {
+      requestOptions.headers = {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      requestOptions.headers,
-    );
+        'Content-Type': 'application/json'
+      };
+    } else if (requestOptions.headers['Content-Type']) {
+      delete requestOptions.headers['Content-Type'];
+    }
 
     this.interceptors.request.forEach((interceptor) => {
       const request = interceptor(requestUrl, requestOptions);
@@ -59,6 +56,10 @@ class Http {
     this.interceptors.response.forEach((interceptor) => {
       response = interceptor(response);
     });
+
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
 
     const responseJson = await response.json();
     return responseJson.data;
